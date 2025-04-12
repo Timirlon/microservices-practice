@@ -1,0 +1,3 @@
+users:
+  server:
+    url: http://${USERS_HOST}:8081
