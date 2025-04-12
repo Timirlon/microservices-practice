@@ -1,36 +1,32 @@
 package com.practice.microservices.controller;
 
 import com.practice.microservices.model.User;
+import com.practice.microservices.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final List<User> users = new ArrayList<>();
-    private int nextId = 1;
+    private final UserRepository userRepository;
 
     @PostMapping
     public User create(@RequestBody User user) {
-        user.setId(nextId++);
         user.setCreatedAt(LocalDateTime.now());
-        users.add(user);
+
+        userRepository.save(user);
 
         return user;
     }
 
     @GetMapping("/{userId}")
     public User findById(@PathVariable int userId) {
-        return users.stream()
-                .filter(user -> user.getId() == userId)
-                .findFirst()
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

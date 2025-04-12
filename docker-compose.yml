@@ -6,8 +6,33 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - USERS_HOST=users-service
+      - DB_HOST=postgres-service-posts
+      - DB_NAME=spring-microservices-users-posts
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
 
   users-service:
     build: /users
     ports:
       - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=postgres-service-users
+      - DB_NAME=spring-microservices-users-posts
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
+
+
+  postgres-service-users:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=spring-microservices-users-posts
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+
+  postgres-service-posts:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=spring-microservices-users-posts
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234

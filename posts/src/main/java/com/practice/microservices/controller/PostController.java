@@ -2,6 +2,7 @@ package com.practice.microservices.controller;
 
 import com.practice.microservices.dto.UserDto;
 import com.practice.microservices.model.Post;
+import com.practice.microservices.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
@@ -21,16 +22,19 @@ import java.util.Map;
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-    private final RestTemplate restTemplate;
-    private final List<Post> posts;
-    private int nextId = 1;
+    private final PostRepository postRepository;
 
-    public PostController(@Value("${users.server.url}") String url, RestTemplateBuilder builder) {
+    private final RestTemplate restTemplate;
+
+
+    public PostController(@Value("${users.server.url}") String url,
+                          RestTemplateBuilder builder,
+                          PostRepository postRepository) {
         restTemplate = builder
                 .uriTemplateHandler(new DefaultUriBuilderFactory(url))
                 .build();
 
-        posts = new ArrayList<>();
+        this.postRepository = postRepository;
     }
 
     @PostMapping
@@ -38,19 +42,17 @@ public class PostController {
         UserDto user = restTemplate.getForObject("/users/{id}", UserDto.class, Map.of("id", userId));
         System.out.println(user);
 
-        post.setId(nextId++);
         post.setCreatedAt(LocalDateTime.now());
-        post.setAuthor(user);
-        posts.add(post);
+        post.setAuthorId(userId);
+
+        postRepository.save(post);
 
         return post;
     }
 
     @GetMapping("/{postId}")
     public Post findById(@PathVariable int postId) {
-        return posts.stream()
-                .filter(post -> post.getId() == postId)
-                .findFirst()
+        return postRepository.findById(postId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
