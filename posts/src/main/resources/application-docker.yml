@@ -1,3 +1,6 @@
+server:
+  port: 8082
+
 users:
   server:
     url: http://${USERS_HOST}:8081
