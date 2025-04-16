@@ -24,6 +24,7 @@
     <modules>
         <module>users</module>
 		<module>posts</module>
+		<module>api-gateway</module>
 	</modules>
     <scm>
 		<connection/>
