@@ -1,6 +1,6 @@
-package com.practice.microservices.repository;
+package com.practice.posts.repository;
 
-import com.practice.microservices.model.Post;
+import com.practice.posts.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {

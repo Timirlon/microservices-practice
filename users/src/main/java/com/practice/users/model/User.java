@@ -1,4 +1,4 @@
-package com.practice.microservices.model;
+package com.practice.users.model;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

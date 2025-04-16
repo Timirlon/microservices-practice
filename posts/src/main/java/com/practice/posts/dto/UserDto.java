@@ -1,4 +1,4 @@
-package com.practice.microservices.dto;
+package com.practice.posts.dto;
 
 import lombok.AccessLevel;
 import lombok.Data;

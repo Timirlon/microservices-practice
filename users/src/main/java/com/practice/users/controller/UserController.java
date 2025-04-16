@@ -1,7 +1,7 @@
-package com.practice.microservices.controller;
+package com.practice.users.controller;
 
-import com.practice.microservices.model.User;
-import com.practice.microservices.repository.UserRepository;
+import com.practice.users.model.User;
+import com.practice.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

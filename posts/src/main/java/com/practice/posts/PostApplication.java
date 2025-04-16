@@ -1,4 +1,4 @@
-package com.practice.microservices;
+package com.practice.posts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
