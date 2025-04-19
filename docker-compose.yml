@@ -1,4 +1,15 @@
 services:
+  users-service:
+    build: /users
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=postgres-service-users
+      - DB_NAME=spring-microservices-users-posts
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
+
   posts-service:
     build: /posts
     ports:
@@ -11,16 +22,16 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=1234
 
-  users-service:
-    build: /users
+
+  api-gateway-service:
+    build: /api-gateway
     ports:
-      - "8081:8081"
+      - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DB_HOST=postgres-service-users
-      - DB_NAME=spring-microservices-users-posts
-      - DB_USER=postgres
-      - DB_PASSWORD=1234
+      - USERS_HOST=users-service
+      - POSTS_HOST=posts-service
+
 
 
   postgres-service-users:

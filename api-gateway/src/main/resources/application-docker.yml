@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+users:
+  server:
+    url: http://${USERS_HOST}:8081
+
+posts:
+  server:
+    url: http://${POSTS_HOST}:8082
