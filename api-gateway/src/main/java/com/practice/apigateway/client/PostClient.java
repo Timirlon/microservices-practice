@@ -1,7 +1,6 @@
 package com.practice.apigateway.client;
 
 import com.practice.posts.model.Post;
-import com.practice.users.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -17,7 +16,7 @@ import java.util.Map;
 public class PostClient {
     private final RestTemplate restTemplate;
 
-    public PostClient(@Value("http://localhost:8082") String url,
+    public PostClient(@Value("${posts.server.url}") String url,
                       RestTemplateBuilder builder) {
 
         this.restTemplate = builder
